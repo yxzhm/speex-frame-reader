@@ -35,10 +35,13 @@ public class SpeexReader {
         List<SpeexFrame> result = new ArrayList<SpeexFrame>();
         byte[] rawData = data;
         int globalBitIndex = 0;
+        int n = 0;
         if (rawData != null && rawData.length > 0) {
-            while (globalBitIndex < data.length) {
+            while (globalBitIndex < data.length * 8) {
+                n++;
                 final int byteIndex = globalBitIndex / 8;
                 final int bitIndex = globalBitIndex % 8;
+
                 short tempData = 0;
                 if (byteIndex < rawData.length - 1) {
                     tempData = (short) (((rawData[byteIndex] << 8) & 0xFF00) | (((rawData[byteIndex + 1])) & 0x00FF));
@@ -57,6 +60,7 @@ public class SpeexReader {
                 if (speexFrame.isPresent()) {
                     globalBitIndex += speexFrame.get().getLength();
                     result.add(speexFrame.get());
+                    System.out.println(n +":"+speexFrame);
                 } else {
                     throw new Exception("Invalid Frame");
                 }
