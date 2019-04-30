@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        File f = new File("d:/hello_how_are_you.spx");
+        File f = new File("d:/Speex16K.speex_wb");
         if (f.exists()) {
             try {
                 FileInputStream fi = new FileInputStream(f);
